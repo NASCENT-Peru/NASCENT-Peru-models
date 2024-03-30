@@ -28,14 +28,14 @@ invisible(lapply(packs, require, character.only = TRUE))
 # Load the Python script for distance calculation
 source_python("./src/scripts/preparation/Python/Distance_Calculation.py")
 
-# Set working directory
-setwd(Data_dir)
+# # Set working directory
+# setwd(Data_dir)
 
 
 # Define paths
 template_raster_path <- "ref_grid.tif"
 peru_boundary_shapefile_path <- "./Preds/Raw/Utils/Peru_admin_boud/per_admbnda_adm0_ign_20200714.shp"
-df_path <- "./Preds/Raw/Data_gathering_with_paths.csv"
+df_path <- "./Preds/Raw/Data_gathering.csv"
 
 
 # Load the data gathering table
@@ -74,25 +74,26 @@ for(i in 1:nrow(df)) {
       # if not, create the path
       dir.create(new_path, recursive = TRUE)
     }
-    
+
     # Call the Python function to calculate distances
     calculate_distances(shapefile_path, reprojected_raster_path, repo_peru_boundary_path, output_path)
-    
-    # Reproject the distances raster back to WGS 84 
+
+    # Reproject the distances raster back to WGS 84
     distances_raster <- rast(output_path)
     distances_raster_wgs84 <- project(distances_raster, "EPSG:4326")
-    
+
     # # Clip the distances raster with the Peru boundary
     # peru_boundary_vect <- vect(peru_boundary)
     # clipped_distances <- mask(distances_raster_wgs84, peru_boundary_vect)
-    
+
     # Save the clipped distances raster
     writeRaster(distances_raster_wgs84, output_path, overwrite=TRUE)
     
     # Update the DataFrame with the new path
     df$Prepared_layer_path[i] <- output_path
+    df$Prepared[i] <- "Y"
   }
 }
 
 # Save the updated DataFrame
-write.csv(df, "updated_data_paths.csv", row.names = FALSE)
+write.csv(df, "./Preds/Raw/updated_data_paths.csv", row.names = FALSE)
