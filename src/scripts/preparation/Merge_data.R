@@ -244,37 +244,6 @@ for (i in 1:nrow(data_gathering_table)) {
   
 
 
-# # Process each CSV file
-# for (csv_file_path in csv_files) {
-#   statistic_data <- read.csv(csv_file_path) %>%
-#     mutate(
-#       DEPARTMENT = iconv(DEPARTMENT, "UTF-8", "ASCII//TRANSLIT"),
-#       PROVINCE = iconv(PROVINCE, "UTF-8", "ASCII//TRANSLIT"),
-#       DISTRICT = iconv(DISTRICT, "UTF-8", "ASCII//TRANSLIT")
-#     )
-#   
-#   # Replace district names using the name-matching table
-#   statistic_data <- merge(statistic_data, name_matching_table, by.x = c("DEPARTMENT", "PROVINCE", "DISTRICT"), by.y = c("DEPARTMENT", "PROVINCE", "DISTRICT_WRONG"), all.x = TRUE) %>%
-#     mutate(DISTRICT = ifelse(is.na(DISTRICT_CORRECT), DISTRICT, DISTRICT_CORRECT)) %>%
-#     select(-DISTRICT_CORRECT)
-#   
-#   # Merge with shapefile data
-#   merged_data <- merge(district_shapefile, statistic_data, by = c("DEPARTMENT", "PROVINCE", "DISTRICT"))
-#   
-#   # Find unmatched rows
-#   unmatched_rows <- anti_join(statistic_data, district_shapefile, by = c("DEPARTMENT", "PROVINCE", "DISTRICT"))
-#   
-#   # Check if there are unmatched rows and increment the counter
-#   # if (nrow(unmatched_rows) > 0) {
-#   #   files_with_unmatched_rows <- files_with_unmatched_rows + 1
-#   #   print(paste("Unmatched rows in file:", basename(csv_file_path)))
-#   #   print(unmatched_rows)
-#   # }
-#   
-#   save_path <- gsub(".csv", "_merged.csv", csv_file_path)
-#   write.csv(merged_data, save_path, row.names = FALSE, quote = FALSE)
-# }
-
 
 
 ### =========================================================================
