@@ -2,7 +2,7 @@ install.packages("terra")
 library(terra)
 
 #load test rast
-test_rast <- terra::rast("X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Bulk_density/bdod_5-15cm_mean.tif")
+test_rast <- terra::rast("X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Clay_content/clay_0-5cm_mean.tif")
 
 #check min/max values
 minmax(test_rast)
@@ -30,11 +30,11 @@ is.int(test_rast_int)
 #save using INT2U datatype
 writeRaster(test_rast,
             datatype= "INT2U",
-            filename = "X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Bulk_density/test_int_rast.tif")
+            filename = "X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Clay_content/test_int_rast.tif")
 
 
 #re-read
-test_int2U <- rast("X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Bulk_density/test_int_rast.tif") 
+test_int2U <- rast("X:/NASCENT-Peru/03_workspaces/02_modelling/Data_collab/Preds/Prepared/Suitability/Biophysical/Clay_content/test_int_rast.tif") 
 is.int(test_int2U)
 
 #attempt to force rast values into memory
