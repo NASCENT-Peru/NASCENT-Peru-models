@@ -22,8 +22,8 @@ if (length(new.packs)) install.packages(new.packs)
 # Load required packages
 invisible(lapply(packs, require, character.only = TRUE))
 
-# Set working directory
-setwd(Data_dir)
+# # Set working directory
+# setwd(Data_dir)
 
 # Load all the LULC files
 years <- 1985:1990
@@ -87,14 +87,14 @@ plot_labels <- labels[as.character(unique_vals)]
 
 
 
-# 设置布局为1行2列，主要为了绘制地图和图例
+
 layout(matrix(1:2, nrow=1), widths=c(4, 1))
 
-# 在第一个区域绘制土地利用图
-par(mar=c(5, 5, 4, 2)) # 调整边距
+
+par(mar=c(5, 5, 4, 2)) 
 plot(land_cover_map, col=plot_colors, main=paste("Land Cover Map", year), axes=TRUE, legend=FALSE)
 
-# 在第二个区域绘制图例
-par(mar=c(5, 2, 4, 2)) # 调整边距
+
+par(mar=c(5, 2, 4, 2)) 
 plot.new()
 legend("center", legend=plot_labels, fill=plot_colors, title="Land Cover Types", cex=0.5, bty="n")
